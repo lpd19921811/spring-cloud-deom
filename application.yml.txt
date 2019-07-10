@@ -1,0 +1,109 @@
+﻿server:
+  port: 8086
+spring:
+  profiles:
+    active: dev
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    druid:
+      initial-size: 10 #初始化连接大小
+      min-idle: 10 #最小空闲连接数
+      max-active: 50 #最大连接数
+      query-timeout: 6000 #查询超时时间
+      transaction-query-timeout: 6000 #事务查询超时时间
+      remove-abandoned-timeout: 1800 #关闭空闲连接超时时间
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+      enabled: true
+mybatis:
+  mapper-locations: classpath:mapper/**/*.xml
+  type-aliases-package: com.maijia.mjcloudcrm.entity
+  configuration:
+    map-underscore-to-camel-case: true
+logging:
+  config: classpath:logback-spring.xml
+auth:
+  open: true
+file:
+  uploadPath:
+  downloadPath: /src/main/resources/static/template/goodsImportTemplate.xlsx
+threadpool:
+  coreSize: 3
+  maxSize: 50
+  queueCapacity: 20
+  aliveSeconds: 60
+smsCode:
+  url: http://a.taocrm.com/Api/ApiHandler.ashx
+  time: 300
+---
+spring:
+  profiles: dev
+  datasource:
+#     url: jdbc:mysql://192.168.0.200:3306/mj_cloud_crm?useUnicode=true&characterEncoding=utf8&useServerPrepStmts=true
+#     username: root
+#     password: root
+#      url: jdbc:mysql://localhost:3306/maiplus_test?useUnicode=true&characterEncoding=utf8&useServerPrepStmts=true
+#      username: root
+#      password: 123456
+    url: jdbc:mysql://127.0.0.1:3307/maiplus_test?useUnicode=true&characterEncoding=utf8&useServerPrepStmts=true
+    username: root
+    password: $maiJia666!
+  redis:
+    database: 0
+    host: 192.168.0.200
+    port: 6379
+    password:
+    timeout: 10000ms
+    lettuce:
+      pool:
+        max-active: 50
+        max-wait: -1ms
+        max-idle: 50
+        min-idle: 0
+crmUrl : http://47.103.46.206:8003
+---
+#server:
+  #port: 8085
+spring:
+  profiles: test
+  datasource:
+    url: jdbc:mysql://rm-uf6n5jv679rixhhxe9o.mysql.rds.aliyuncs.com:3306/maiplus_test?useUnicode=true&characterEncoding=utf8&useServerPrepStmts=true
+    username: root
+    password: $maiJia666!
+  redis:
+    database: 3
+    host: 192.168.0.200
+    port: 6379
+    password: maiJiaRedis
+    timeout: 10000ms
+    lettuce:
+      pool:
+        max-active: 50
+        max-wait: -1ms
+        max-idle: 50
+        min-idle: 0
+crmUrl : http://47.103.46.206:8003
+---
+#server:
+  #port: 8086
+spring:
+  profiles: prod
+  datasource:
+    url: jdbc:mysql://rm-uf6n5jv679rixhhxe9o.mysql.rds.aliyuncs.com:3306/maiplus_sop?useUnicode=true&characterEncoding=utf8&useServerPrepStmts=true
+    username: root
+    password: $maiJia666!
+  redis:
+    database: 2
+    host: r-uf6v2gmzitsz1hh9w6.redis.rds.aliyuncs.com
+    port: 6379
+    password: $maiJia666!
+    timeout: 10000ms
+    lettuce:
+      pool:
+        max-active: 50
+        max-wait: -1ms
+        max-idle: 50
+        min-idle: 0
+crmUrl : http://47.103.46.206:8002
